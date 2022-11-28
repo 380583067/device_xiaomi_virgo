@@ -1,4 +1,4 @@
-Copyright 2017 - The Mokee Project
+Copyright 2022 - The Lineage Project
 
 Xiaomi Mi Note LTE
 ==============
