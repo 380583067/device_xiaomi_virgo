@@ -19,6 +19,9 @@ $(call inherit-product, device/xiaomi/virgo/virgo.mk)
 # Inherit some common Lineage stuff.
 $(call inherit-product, vendor/aosp/config/common_full_phone.mk)
 
+# Gapps Architecture
+TARGET_GAPPS_ARCH := arm
+
 PRODUCT_NAME := aosp_virgo
 PRODUCT_DEVICE := virgo
 PRODUCT_BRAND := Xiaomi
