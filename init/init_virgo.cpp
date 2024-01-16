@@ -42,9 +42,26 @@
 #include "vendor_init.h"
 
 using android::base::GetProperty;
-using android::init::property_set;
 using android::base::ReadFileToString;
 using android::base::Trim;
+
+void property_override(char const prop[], char const value[])
+{
+    prop_info *pi;
+
+    pi = (prop_info*) __system_property_find(prop);
+    if (pi)
+        __system_property_update(pi, value, strlen(value));
+    else
+        __system_property_add(prop, strlen(prop), value, strlen(value));
+}
+
+void property_override_dual(char const system_prop[],
+        char const vendor_prop[], char const value[])
+{
+    property_override(system_prop, value);
+    property_override(vendor_prop, value);
+}
 
 void init_alarm_boot_properties()
 {
@@ -74,14 +91,19 @@ void init_alarm_boot_properties()
      */
         if ((Trim(boot_reason) == "3" || tmp == "true")
                 && Trim(power_off_alarm) == "1")
-            property_set("ro.alarm_boot", "true");
+            property_override("ro.alarm_boot", "true");
         else
-            property_set("ro.alarm_boot", "false");
+            property_override("ro.alarm_boot", "false");
     }
 }
 
 void vendor_load_properties()
 {
-    property_set("rild.libargs", "-d /dev/smd0");
+    property_override_dual("ro.product.device", "ro.vendor.product.device", "virgo");
+    property_override_dual("ro.product.name", "ro.vendor.product.name", "virgo");
+    property_override("ro.build.fingerprint", "Xiaomi/virgo/virgo:6.0.1/MMB29M/V8.1.6.0.MXDMIDI:user/release-keys");
+    property_override("ro.build.description", "virgo-user 6.0.1 MMB29M V8.1.6.0.MXDMIDI release-keys");
+
+    property_override("rild.libargs", "-d /dev/smd0");
     init_alarm_boot_properties();
 }

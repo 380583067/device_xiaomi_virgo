@@ -1,5 +1,4 @@
 PRODUCT_PROPERTY_OVERRIDES += \
-    ril.subscription.types=RUIM \
     ro.telephony.ril.config=simactivation \
     media.aac_51_output_enabled=true \
     persist.vendor.audio.fluence.speaker=true \
@@ -19,6 +18,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.default_network=20 \
     persist.radio.multisim.config=dsds
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=440
